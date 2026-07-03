@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Stick N Lit handcrafted refillable custom sticker lighters with premium packaging.">
+  <title>Stick N Lit | Custom Sticker Lighters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <button class="menu-button" type="button" data-open-menu aria-label="Open menu">
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="#new">Home</a>
+      <a href="#custom">Order</a>
+      <a href="#drops">Packs</a>
+      <a href="#studio">Details</a>
+    </nav>
+    <a class="brand" href="#" aria-label="Stick N Lit home">STICK N LIT</a>
+    <nav class="utility-nav" aria-label="Shop">
+      <a href="#journal">Info</a>
+      <button type="button" data-open-cart>Order <span data-cart-count>0</span></button>
+    </nav>
+  </header>
+
+  <aside class="mobile-menu" data-menu aria-label="Menu">
+    <button class="close-button" type="button" data-close-menu>Close</button>
+    <a href="#new">Home</a>
+    <a href="#custom">Order</a>
+    <a href="#drops">Packs</a>
+    <a href="#studio">Details</a>
+    <a href="#journal">Info</a>
+  </aside>
+
+  <main>
+    <section class="hero" id="new">
+      <div class="hero-media">
+        <canvas id="heroCanvas" width="1600" height="900"
+          aria-label="Sticker lighters arranged on a studio surface"></canvas>
+      </div>
+      <div class="hero-copy">
+        <p>Handcrafted custom sticker lighters</p>
+        <h1>STICK N LIT</h1>
+        <div class="hero-actions">
+          <a class="solid-button" href="#custom">Place Order</a>
+          <a class="text-button" href="#drops">View Packs</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="Store highlights">
+      <span>Handcrafted</span>
+      <span>Premium Packaging</span>
+      <span>Refillable</span>
+      <span>Adjustable Flame</span>
+    </section>
+
+    <section class="custom-order" id="custom">
+      <form class="custom-panel" id="customForm">
+        <p class="eyebrow">Welcome to Stick N Lit</p>
+        <h2>Build Your Pack</h2>
+        <p>Choose your favourite designs.</p>
+
+        <label>
+          Preferred Pack
+          <select name="pack" id="packSelect">
+            <option value="single" data-price="199" data-quantity="1" data-shipping="Shipping charges extra">
+              Single Lighter — ₹199
+            </option>
+            <option value="twin" data-price="359" data-quantity="2" data-shipping="Shipping charges extra">
+              Twin Pack — ₹359
+            </option>
+            <option value="trio" data-price="549" data-quantity="3" data-shipping="Free Shipping">
+              Trio Pack — ₹549
+            </option>
+            <option value="five" data-price="849" data-quantity="5" data-shipping="Free Shipping">
+              5 Pack — ₹849
+            </option>
+          </select>
+        </label>
+
+        <p id="selectionInfo" class="selection-info">
+          Choose 1 design.
+        </p>
+
+        <h3>Core Collection</h3>
+        <p class="collection-subtitle">9 Exclusive Designs</p>
+
+        <div class="design-grid">
+
+          <label class="design-card">
+            <input type="checkbox" value="Blue Bubbles">
+            <img src="image/blue-bubbles.JPG" alt="Blue Bubbles">
+            <span>Blue Bubbles</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="Banana Sign">
+            <img src="image/banana-sign.JPG" alt="Banana Sign">
+            <span>Banana Sign</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="Tiger">
+            <img src="image/tiger.JPG" alt="Tiger">
+            <span>Tiger</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="Balloon Dog">
+            <img src="image/balloon-dog.JPG" alt="Balloon Dog">
+            <span>Balloon Dog</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="Burning Match">
+            <img src="image/burning-match.JPG" alt="Burning Match">
+            <span>Burning Match</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="Cloud Girl">
+            <img src="image/cloud-girl.JPG" alt="Cloud Girl">
+            <span>Cloud Girl</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="Pool Girl">
+            <img src="image/pool-girl.JPG" alt="Pool Girl">
+            <span>Pool Girl</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="Purple Bust">
+            <img src="image/purple-bust.jpeg" alt="Purple Bust">
+            <span>Purple Bust</span>
+          </label>
+
+          <label class="design-card">
+            <input type="checkbox" value="whirlpool">
+            <img src="image/whirlpool.JPG" alt="whirlpool">
+            <span>whirlpool</span>
+          </label>
+
+        </div>
+
+        <label>
+          Full Name
+          <input name="fullName" id="fullName" autocomplete="name">
+        </label>
+
+        <label>
+          Mobile Number
+          <input name="mobile" id="mobileNumber" inputmode="tel" autocomplete="tel">
+        </label>
+
+        <label>
+          Complete Delivery Address with PIN Code
+          <textarea name="address" id="deliveryAddress" rows="4"></textarea>
+        </label>
+
+        <button class="solid-button" type="submit">Add Order</button>
+      </form>
+    </section>
+
+    <section class="product-section" id="drops">
+      <div class="section-heading">
+        <p class="eyebrow">Available Packs</p>
+        <h2>Choose your pack</h2>
+        <a href="#custom">Place an order</a>
+      </div>
+      <div class="product-grid" data-products></div>
+    </section>
+
+    <section class="lookbook" id="studio">
+      <div>
+        <p class="eyebrow">With every order</p>
+        <h2>Premium packaging, a complimentary Stick N Lit sticker, and individual quality checks.</h2>
+      </div>
+      <div class="lookbook-panel">
+        <canvas id="setCanvas" width="960" height="640" aria-label="A set of Stick N Lit sticker lighters"></canvas>
+      </div>
+    </section>
+
+    <section class="journal" id="journal">
+      <article>
+        <span>Shipping</span>
+        <h3>Orders are dispatched within 24–48 hours.</h3>
+      </article>
+      <article>
+        <span>Payment</span>
+        <h3>Prepaid orders only. UPI details are shared after confirmation.</h3>
+      </article>
+      <article>
+        <span>Order Info</span>
+        <h3>Share name, mobile number, full address, and preferred pack.</h3>
+      </article>
+    </section>
+  </main>
+
+  <aside class="cart-drawer" data-cart aria-label="Order summary">
+    <div class="cart-head">
+      <h2>Order</h2>
+      <button type="button" data-close-cart>Close</button>
+    </div>
+    <div class="cart-items" data-cart-items></div>
+    <div class="cart-foot">
+      <div>
+        <span>Total</span>
+        <strong data-cart-total>₹0</strong>
+      </div>
+      <button class="solid-button" type="button" data-checkout>Save Order</button>
+    </div>
+  </aside>
+
+  <footer>
+    <div>
+      <a class="brand footer-brand" href="#">STICK N LIT</a>
+      <p>Handcrafted premium refillable sticker lighters. Light Different.</p>
+    </div>
+    <form class="newsletter">
+      <label for="email">Order updates</label>
+      <div>
+        <input id="email" type="email" placeholder="you@example.com">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
