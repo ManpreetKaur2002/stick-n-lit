@@ -13,10 +13,9 @@ export default async function handler(req, res) {
             message: "Method Not Allowed"
         });
     }
+    const { customer, cart } = req.body;
 
     try {
-
-        const { customer, cart } = req.body;
 
         const { error } = await supabase.rpc(
             "place_complete_order",
@@ -34,11 +33,32 @@ export default async function handler(req, res) {
 
     } catch (err) {
 
-        console.error(err);
+        console.error("ORDER INSERT FAILED:", err);
+
+        try {
+
+            await supabase
+                .from("failed_orders")
+                .insert({
+                    payment_id: customer.payment_id,
+                    razorpay_order_id: customer.razorpay_order_id,
+                    customer,
+                    cart,
+                    error_message: err.message,
+                    resolved: false
+                });
+
+        } catch (logError) {
+
+            console.error("Failed to log failed order:", logError);
+
+        }
 
         return res.status(500).json({
             success: false,
-            message: err.message
+            pending: true,
+            message:
+                "Payment received, but your order is still being confirmed."
         });
 
     }

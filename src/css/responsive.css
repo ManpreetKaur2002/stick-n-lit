@@ -289,66 +289,6 @@
     }
 
     /* ===========================
-   LOOKBOOK
-=========================== */
-
-    .lookbook {
-        display: flex;
-        flex-direction: column;
-
-        padding: 55px 20px;
-
-        gap: 28px;
-
-        align-items: center;
-    }
-
-    .lookbook>* {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .lookbook h3 {
-        max-width: 100%;
-        font-size: 2rem;
-        text-align: center;
-    }
-
-    .lookbook-panel {
-        width: 100%;
-        padding: 20px;
-        border-radius: 22px;
-    }
-
-    #setCanvas {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .lookbook-content,
-    .lookbook-panel {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .lookbook h2 {
-        font-size: 2rem;
-        text-align: center;
-    }
-
-    .lookbook p {
-        text-align: center;
-    }
-
-    .lookbook canvas,
-    .lookbook img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    /* ===========================
    JOURNAL
 =========================== */
 
@@ -588,45 +528,6 @@
 
     .collection-card {
         height: 270px;
-    }
-
-    /* ---------- Lookbook ---------- */
-
-    .lookbook {
-        grid-template-columns: 1fr;
-        gap: 50px;
-
-        padding: 80px 40px;
-
-        text-align: center;
-    }
-
-    .lookbook>div:first-child {
-        max-width: 620px;
-        margin: 0 auto;
-    }
-
-    .lookbook>div:first-child h3 {
-        font-size: 3.2rem;
-        line-height: 1.08;
-    }
-
-    .lookbook>div:first-child p,
-    .lookbook>div:first-child .eyebrow {
-        text-align: center;
-    }
-
-    .lookbook-panel {
-        width: 100%;
-        max-width: 620px;
-
-        margin: 0 auto;
-    }
-
-    .lookbook-panel canvas {
-        width: 100%;
-        height: auto;
-        display: block;
     }
 
     /* ---------- Journal ---------- */

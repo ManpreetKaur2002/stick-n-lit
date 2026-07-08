@@ -161,6 +161,7 @@ const collections = {
 
 const packSelect = document.getElementById("packSelect");
 let designCheckboxes = [];
+const selectedDesigns = new Map();
 
 const selectionInfo = document.getElementById("selectionInfo");
 let maxSelection = 1;
@@ -185,11 +186,23 @@ function renderCollection(collectionName) {
 
     card.className = "design-card";
 
+    const key = `${collectionName}:${design.name}`;
+
     card.innerHTML = `
-        <input type="checkbox" value="${design.name}">
-        <img src="${design.image}" alt="${design.name}">
-        <span>${design.name}</span>
-    `;
+    <input
+        type="checkbox"
+        value="${design.name}"
+        ${selectedDesigns.has(key) ? "checked" : ""}
+    >
+
+    <img src="${design.image}" alt="${design.name}">
+
+    <span>${design.name}</span>
+`;
+
+    if (selectedDesigns.has(key)) {
+      card.classList.add("selected");
+    }
 
     designGrid.appendChild(card);
 
@@ -367,11 +380,11 @@ function drawHero() {
 
 function selectedPack() {
   const option = els.pack.selectedOptions[0];
+
   return {
     name: option.textContent,
     price: Number(option.dataset.price),
-    quantity: Number(option.dataset.quantity),
-    shipping: option.dataset.shipping
+    quantity: Number(option.dataset.quantity)
   };
 }
 
@@ -429,16 +442,20 @@ function productCard(product) {
   return card;
 }
 
-
 function updateSelectionLimit() {
 
-  const option = packSelect.options[packSelect.selectedIndex];
+  const selected = selectedDesigns.size;
 
-  maxSelection = Number(option.dataset.quantity);
+  document.getElementById("selectionCount").textContent =
+    `${selected} / ${maxSelection}`;
 
-  selectionInfo.textContent =
-    `Choose ${maxSelection} design${maxSelection > 1 ? "s" : ""}.`;
+  const percent = (selected / maxSelection) * 100;
 
+  document.getElementById("selectionFill").style.width =
+    percent + "%";
+
+  document.getElementById("addToCart").disabled =
+    selected !== maxSelection;
 }
 
 document.querySelector("[data-checkout]").addEventListener("click", () => {
@@ -460,42 +477,32 @@ document.getElementById("addToCart").addEventListener("click", () => {
 
   const pack = selectedPack();
 
-  const selectedDesigns = [...designCheckboxes]
-    .filter(cb => cb.checked)
-    .map(cb => cb.value);
-
-  if (selectedDesigns.length !== pack.quantity) {
+  if (selectedDesigns.size !== pack.quantity) {
     alert(`Please select exactly ${pack.quantity} design(s).`);
     return;
   }
 
-  const collection = collectionSelect.value;
+  const designs = [...selectedDesigns.values()];
 
   const cartItem = {
     id: Date.now(),
 
-    collection,
-
     pack: pack.name,
-
     quantity: pack.quantity,
-
     price: pack.price,
-
-    shipping: pack.shipping,
-
-    designs: selectedDesigns
+    designs
   };
 
-  console.log(cartItem)
-  addToCart(cartItem)
+  addToCart(cartItem);
 
-  designCheckboxes.forEach(cb => {
-    cb.checked = false;
-    cb.closest(".design-card").classList.remove("selected");
-  });
+  // Reset selection
+  selectedDesigns.clear();
 
   document.getElementById("customForm").reset();
+
+  packSelect.selectedIndex = 0;
+  maxSelection = Number(packSelect.selectedOptions[0].dataset.quantity);
+
   collectionSelect.value = "core";
   renderCollection("core");
 
@@ -506,15 +513,18 @@ initCheckout();
 
 packSelect.addEventListener("change", () => {
 
-  designCheckboxes.forEach(cb => {
+  maxSelection = Number(
+    packSelect.selectedOptions[0].dataset.quantity
+  );
 
+  selectedDesigns.clear();
+
+  designCheckboxes.forEach(cb => {
     cb.checked = false;
     cb.closest(".design-card").classList.remove("selected");
-
   });
 
   updateSelectionLimit();
-
 });
 
 collectionSelect.addEventListener("change", () => {
@@ -532,29 +542,44 @@ function setupCheckboxEvents() {
 
     box.addEventListener("change", () => {
 
-      const checked = [...designCheckboxes].filter(cb => cb.checked);
+      const key = `${collectionSelect.value}:${box.value}`;
 
-      if (checked.length > maxSelection) {
+      if (box.checked) {
 
-        box.checked = false;
+        selectedDesigns.set(key, {
+          collection: collectionSelect.value,
+          name: box.value
+        });
 
-        const card = box.closest(".design-card");
+        if (selectedDesigns.size > maxSelection) {
 
-        card.classList.add("shake");
+          selectedDesigns.delete(key);
+          box.checked = false;
 
-        setTimeout(() => {
-          card.classList.remove("shake");
-        }, 350);
+          const card = box.closest(".design-card");
+          card.classList.add("shake");
 
-        return;
+          setTimeout(() => {
+            card.classList.remove("shake");
+          }, 350);
+
+          updateSelectionLimit();
+          return;
+        }
+
+      } else {
+
+        selectedDesigns.delete(key);
+
       }
 
-      document.querySelectorAll(".design-card").forEach(card => {
-        card.classList.remove("selected");
-      });
+      updateSelectionLimit();
 
-      checked.forEach(cb => {
-        cb.closest(".design-card").classList.add("selected");
+      designCheckboxes.forEach(cb => {
+        cb.closest(".design-card").classList.toggle(
+          "selected",
+          cb.checked
+        );
       });
 
     });

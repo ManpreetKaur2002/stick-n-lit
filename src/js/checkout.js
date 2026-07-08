@@ -8,6 +8,123 @@ import {
 
 import { getCartTotal, clearCart, state } from "./cart.js";
 
+const subtotalAmount = document.getElementById("subtotalAmount");
+const shippingAmount = document.getElementById("shippingAmount");
+const orderTotal = document.getElementById("orderTotal");
+
+const deliveryOptions =
+    document.querySelectorAll('input[name="delivery"]');
+
+const money = new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0
+});
+
+const delhiNcrPins = [
+    "110", // Delhi
+    "121", // Faridabad
+    "122", // Gurgaon
+    "201", // Noida
+    "203", // Greater Noida
+];
+
+const pincodeInput =
+    document.getElementById("checkoutPincode");
+
+const ownerRadio =
+    document.getElementById("ownerDelivery");
+
+const ownerNote =
+    document.getElementById("ownerDeliveryNote");
+
+pincodeInput.addEventListener("input", () => {
+
+    const pin = pincodeInput.value.trim();
+
+    const isDelhiNCR = delhiNcrPins.some(prefix =>
+        pin.startsWith(prefix)
+    );
+
+    ownerRadio.disabled = !isDelhiNCR;
+
+    if (isDelhiNCR) {
+
+        ownerNote.textContent =
+            "✓ Owner Delivery Available";
+
+    } else {
+
+        ownerNote.textContent =
+            "Available only in Delhi NCR";
+
+        if (ownerRadio.checked) {
+
+            document.querySelector(
+                'input[value="standard"]'
+            ).checked = true;
+
+            updateOrderSummary();
+
+        }
+
+    }
+
+});
+
+function updateOrderSummary() {
+
+    const subtotal = getCartTotal();
+
+    const selectedDelivery =
+        document.querySelector('input[name="delivery"]:checked');
+
+    const deliveryMethod = selectedDelivery
+        ? selectedDelivery.value
+        : "standard";
+
+    let shipping = 0;
+
+    if (deliveryMethod === "owner") {
+
+        shipping = 5000;
+
+    } else {
+
+        const hasSmallPack = state.cart.some(item => item.quantity < 3);
+
+        shipping = hasSmallPack ? 60 : 0;
+    }
+
+    subtotalAmount.textContent =
+        `₹${subtotal}`;
+
+    shippingAmount.textContent =
+        shipping === 0 ? "FREE" : `₹${shipping}`;
+
+    orderTotal.textContent =
+        `₹${subtotal + shipping}`;
+}
+
+function getShippingCharge() {
+
+    const selectedDelivery =
+        document.querySelector('input[name="delivery"]:checked');
+
+    const deliveryMethod = selectedDelivery
+        ? selectedDelivery.value
+        : "standard";
+
+    if (deliveryMethod === "owner") {
+        return 5000;
+    }
+
+    // Standard delivery
+    const hasSmallPack = state.cart.some(item => item.quantity < 3);
+
+    return hasSmallPack ? 60 : 0;
+}
+
 async function createRazorpayOrder() {
 
     const response = await fetch("/api/create-order", {
@@ -19,7 +136,7 @@ async function createRazorpayOrder() {
         },
 
         body: JSON.stringify({
-            amount: getCartTotal()
+            amount: getCartTotal() + getShippingCharge()
         })
 
     });
@@ -133,20 +250,44 @@ function initCheckout() {
                             return;
                         }
 
+                        const selectedDelivery =
+                            document.querySelector('input[name="delivery"]:checked');
+
+                        const deliveryMethod = selectedDelivery
+                            ? selectedDelivery.value
+                            : "standard";
+
+                        const shippingCharge = getShippingCharge();
+
                         const customer = {
+
                             full_name: checkoutEls.name.value.trim(),
                             mobile: checkoutEls.mobile.value.trim(),
                             address: checkoutEls.address.value.trim(),
+                            pincode: checkoutEls.pincode.value.trim(),
+
+                            delivery_method: deliveryMethod,
+                            shipping_charge: shippingCharge,
 
                             payment_id: response.razorpay_payment_id,
                             razorpay_order_id: response.razorpay_order_id
                         };
 
-                        console.time("placeOrder");
                         const orderResult = await placeOrder(customer, state.cart);
-                        console.timeEnd("placeOrder");
 
                         console.log("Place Order Result:", orderResult);
+
+                        if (orderResult.pending) {
+
+                            showStatus(
+                                true,
+                                "Payment received successfully! Your order is being confirmed. If you don't receive confirmation shortly, please contact us with your payment ID."
+                            );
+
+                            clearCart();
+
+                            return;
+                        }
 
                         if (!orderResult.success) {
 
@@ -224,6 +365,10 @@ function initCheckout() {
     checkoutEls.mobile.addEventListener("input", validateCheckoutMobile);
     checkoutEls.address.addEventListener("input", validateCheckoutAddress);
 
+    deliveryOptions.forEach(option => {
+        option.addEventListener("change", updateOrderSummary);
+    });
+
     checkoutEls.mobile.addEventListener("input", () => {
         checkoutEls.mobile.value =
             checkoutEls.mobile.value.replace(/\D/g, "").slice(0, 10);
@@ -235,6 +380,7 @@ function initCheckout() {
     checkoutEls.mobile.value = "";
     checkoutEls.address.value = "";
 
+    updateOrderSummary();
     // Your checkoutForm submit listener should also be inside this function
 }
 

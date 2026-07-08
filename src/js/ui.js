@@ -12,7 +12,8 @@ const checkoutEls = {
 
     nameError: document.getElementById("checkoutNameError"),
     mobileError: document.getElementById("checkoutMobileError"),
-    addressError: document.getElementById("checkoutAddressError")
+    addressError: document.getElementById("checkoutAddressError"),
+    pincode: document.getElementById("checkoutPincode"),
 };
 
 const els = {

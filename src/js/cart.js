@@ -71,20 +71,22 @@ function renderCart() {
 
         <h3>${item.pack}</h3>
 
-        <p class="cart-collection">
-            ${item.collection === "core"
-                ? "Core Collection"
-                : "Cosmic Collection"}
-        </p>
-
         <div class="cart-designs">
+
             ${item.designs
-                .map(design => `<span class="design-chip">${design}</span>`)
+                .map(design => `
+                    <span class="design-chip">
+                        ${design.name}
+                        <small>
+                            (${design.collection === "core"
+                        ? "Core"
+                        : "Cosmic"})
+                        </small>
+                    </span>
+                `)
                 .join("")}
+
         </div>
-
-        <small>${item.shipping}</small>
-
     </div>
 
     <div class="cart-item-right">
