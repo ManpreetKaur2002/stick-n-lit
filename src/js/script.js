@@ -4,7 +4,7 @@ import {
   checkoutEls,
 } from "./ui.js";
 import {
-  initCheckout
+  initCheckout, updateOrderSummary
 } from "./checkout.js";
 
 const money = new Intl.NumberFormat("en-IN", {
@@ -464,6 +464,8 @@ document.querySelector("[data-checkout]").addEventListener("click", () => {
   }
 
   els.cart.classList.remove("is-open");
+
+  updateOrderSummary();
 
   checkoutEls.modal.classList.add("show");
 

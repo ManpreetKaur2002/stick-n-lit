@@ -387,5 +387,6 @@ function initCheckout() {
 export {
     createRazorpayOrder,
     verifyPayment,
-    initCheckout
+    initCheckout,
+    updateOrderSummary
 };
