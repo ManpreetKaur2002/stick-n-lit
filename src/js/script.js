@@ -7,8 +7,6 @@ import {
   initCheckout
 } from "./checkout.js";
 
-console.log("Supabase Connected:", supabase);
-
 const money = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
