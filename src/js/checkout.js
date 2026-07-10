@@ -1,5 +1,5 @@
 import { checkoutEls, successModal, showStatus } from "./ui.js";
-
+import { money, delhiNcrPins, SHIPPING, DELIVERY } from "./utils.js";
 import {
     validateCheckoutName,
     validateCheckoutMobile,
@@ -11,23 +11,15 @@ import { getCartTotal, clearCart, state } from "./cart.js";
 const subtotalAmount = document.getElementById("subtotalAmount");
 const shippingAmount = document.getElementById("shippingAmount");
 const orderTotal = document.getElementById("orderTotal");
+const standardDeliveryPrice =
+    document.getElementById("standardDeliveryPrice");
+const standardRadio =
+    document.querySelector(
+        'input[value="standard"]'
+    );
 
 const deliveryOptions =
     document.querySelectorAll('input[name="delivery"]');
-
-const money = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0
-});
-
-const delhiNcrPins = [
-    "110", // Delhi
-    "121", // Faridabad
-    "122", // Gurgaon
-    "201", // Noida
-    "203", // Greater Noida
-];
 
 const pincodeInput =
     document.getElementById("checkoutPincode");
@@ -35,46 +27,64 @@ const pincodeInput =
 const ownerRadio =
     document.getElementById("ownerDelivery");
 
+const ownerDeliveryOption =
+    document.getElementById("ownerDeliveryOption");
+
 const ownerNote =
     document.getElementById("ownerDeliveryNote");
+
+const deliverySection =
+    document.getElementById("deliverySection");
 
 pincodeInput.addEventListener("input", () => {
 
     const pin = pincodeInput.value.trim();
 
+    // Hide until 6 digits entered
+    if (pin.length < 6) {
+
+        deliverySection.classList.remove("show");
+
+        return;
+    }
+
+    deliverySection.classList.add("show");
+
     const isDelhiNCR = delhiNcrPins.some(prefix =>
         pin.startsWith(prefix)
     );
 
-    ownerRadio.disabled = !isDelhiNCR;
+    console.log(pin);
+    console.log(delhiNcrPins);
+    console.log(
+        delhiNcrPins.some(prefix => pin.startsWith(prefix))
+    );
 
     if (isDelhiNCR) {
 
-        ownerNote.textContent =
-            "✓ Owner Delivery Available";
+        ownerDeliveryOption.style.display = "flex";
 
-    } else {
-
-        ownerNote.textContent =
-            "Available only in Delhi NCR";
-
-        if (ownerRadio.checked) {
-
-            document.querySelector(
-                'input[value="standard"]'
-            ).checked = true;
-
-            updateOrderSummary();
-
-        }
+        ownerRadio.disabled = false;
 
     }
+    else {
+
+        ownerDeliveryOption.style.display = "none";
+
+        ownerRadio.disabled = true;
+
+        standardRadio.checked = true;
+
+    }
+
+    updateOrderSummary();
 
 });
 
 function updateOrderSummary() {
 
     const subtotal = getCartTotal();
+    const pin = pincodeInput.value.trim();
 
     const selectedDelivery =
         document.querySelector('input[name="delivery"]:checked');
@@ -85,19 +95,32 @@ function updateOrderSummary() {
 
     let shipping = 0;
 
-    if (deliveryMethod === "owner") {
+    // Don't calculate shipping until pincode is complete
+    if (pin.length < 6) {
 
-        shipping = 5000;
+        subtotalAmount.textContent = `₹${subtotal}`;
+        shippingAmount.textContent = "--";
+        orderTotal.textContent = `₹${subtotal}`;
+
+        return;
+    }
+
+    if (deliveryMethod === DELIVERY.OWNER) {
+
+        shipping = SHIPPING.OWNER;
 
     } else {
 
         const hasSmallPack = state.cart.some(item => item.quantity < 3);
 
-        shipping = hasSmallPack ? 60 : 0;
+        shipping = hasSmallPack ? SHIPPING.STANDARD : 0;
     }
 
     subtotalAmount.textContent =
         `₹${subtotal}`;
+
+    standardDeliveryPrice.textContent =
+        shipping === 0 ? "FREE" : "₹60";
 
     shippingAmount.textContent =
         shipping === 0 ? "FREE" : `₹${shipping}`;
@@ -115,7 +138,7 @@ function getShippingCharge() {
         ? selectedDelivery.value
         : "standard";
 
-    if (deliveryMethod === "owner") {
+    if (deliveryMethod === DELIVERY.OWNER) {
         return 5000;
     }
 
@@ -196,6 +219,18 @@ function initCheckout() {
 
             e.preventDefault();
 
+            for (const item of state.cart) {
+
+                if (item.designs.length !== item.quantity) {
+
+                    alert(
+                        `Your ${item.pack} requires ${item.quantity} designs. Please edit your cart before placing the order.`
+                    );
+
+                    return;
+                }
+            }
+
             if (!validateCheckoutName()) return;
             if (!validateCheckoutMobile()) return;
             if (!validateCheckoutAddress()) return;
@@ -235,11 +270,7 @@ function initCheckout() {
                             null,
                             "Processing your payment...\nPlease don't close this page."
                         );
-
-                        console.time("verifyPayment");
                         const paymentResult = await verifyPayment(response);
-                        console.timeEnd("verifyPayment");
-
                         if (!paymentResult.success) {
 
                             showStatus(
@@ -275,8 +306,6 @@ function initCheckout() {
 
                         const orderResult = await placeOrder(customer, state.cart);
 
-                        console.log("Place Order Result:", orderResult);
-
                         if (orderResult.pending) {
 
                             showStatus(
@@ -290,8 +319,6 @@ function initCheckout() {
                         }
 
                         if (!orderResult.success) {
-
-                            console.error(orderResult);
 
                             showStatus(
                                 false,
@@ -315,8 +342,6 @@ function initCheckout() {
                         );
 
                     } catch (err) {
-
-                        console.error(err);
 
                         showStatus(
                             false,

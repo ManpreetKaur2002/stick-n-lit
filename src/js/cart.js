@@ -1,3 +1,7 @@
+import {
+    money
+} from "./utils";
+
 export const state = {
     cart: JSON.parse(sessionStorage.getItem("sticknlit-cart")) || []
 };
@@ -12,22 +16,14 @@ const els = {
     pack: document.querySelector("#packSelect"),
 };
 
-const money = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0
-});
-
 function saveCart() {
     sessionStorage.setItem("sticknlit-cart", JSON.stringify(state.cart));
 }
 
-function getCartTotal() {
-    return state.cart.reduce((sum, item) => sum + item.price, 0);
-}
+export const getCartTotal = () =>
+    state.cart.reduce((sum, item) => sum + item.price, 0);
 
 function addToCart(item) {
-    console.log("addToCart called");
     state.cart.push(item);
 
     saveCart();
@@ -136,4 +132,4 @@ document.addEventListener("pointerdown", (e) => {
 
 });
 
-export { getCartTotal, renderCart, addToCart, clearCart }
+export { renderCart, addToCart, clearCart }

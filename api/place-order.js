@@ -33,8 +33,6 @@ export default async function handler(req, res) {
 
     } catch (err) {
 
-        console.error("ORDER INSERT FAILED:", err);
-
         try {
 
             await supabase

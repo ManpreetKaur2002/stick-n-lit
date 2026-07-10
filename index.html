@@ -27,7 +27,7 @@
       <a href="#new">Home</a>
       <a href="#custom">Order</a>
       <a href="#drops">Collection</a>
-      <a href="#studio">About</a>
+      <a href="#journal">About</a>
     </nav>
 
     <nav class="utility-nav">
@@ -43,7 +43,7 @@
     <a href="#new">Home</a>
     <a href="#custom">Order</a>
     <a href="#drops">Collection</a>
-    <a href="#studio">About</a>
+    <a href="#journal">About</a>
   </aside>
 
   <main>
@@ -159,6 +159,8 @@
         <button class="solid-button" type="button" id="addToCart">
           Add Pack
         </button>
+
+        <p id="selectionError" class="selection-error"></p>
       </form>
     </section>
 
@@ -298,8 +300,9 @@
 
         <h4>Support</h4>
 
-        <a href="#journal">Shipping</a>
-        <a href="#journal">Payments</a>
+        <a href="mailto:sticknlit@gmail.com">
+          sticknlit@gmail.com
+        </a>
 
       </div>
 
@@ -307,9 +310,7 @@
 
         <h4>Follow</h4>
 
-        <a href="#">Instagram</a>
-        <a href="#">WhatsApp</a>
-
+        <a href="https://www.instagram.com/sticknlit?igsh=NW9tbGZrYzRpcWxy&utm_source=qr">Instagram</a>
       </div>
 
     </div>
@@ -322,96 +323,102 @@
 
     <div class="checkout-content">
 
-      <button id="closeCheckout" aria-label="Close">✕</button>
+      <div class="checkout-header">
 
-      <h2>Checkout</h2>
-      <p class="checkout-subtitle">
-        Fill in your details to place your order.
-      </p>
-
-      <form class="checkout-form" id="checkoutForm">
-
-        <label>
-          Full Name
-          <input id="checkoutName" type="text">
-          <small id="checkoutNameError" class="error"></small>
-        </label>
-
-        <label>
-          Mobile Number
-          <input id="checkoutMobile" type="tel" maxlength="10">
-          <small id="checkoutMobileError" class="error"></small>
-        </label>
-
-        <label>
-          Delivery Address
-          <textarea id="checkoutAddress" rows="4"></textarea>
-          <small id="checkoutAddressError" class="error"></small>
-        </label>
-
-        <label>
-          Pincode
-          <input id="checkoutPincode" type="text" maxlength="6">
-          <small id="checkoutPincodeError" class="error"></small>
-        </label>
-
-        <h3>Delivery Method</h3>
-
-        <label class="delivery-option">
-
-          <input type="radio" name="delivery" value="standard" checked>
-
-          <div>
-            <strong>Standard Delivery</strong>
-            <p class="delivery-price">₹60</p>
-          </div>
-
-        </label>
-
-        <label class="delivery-option">
-
-          <input type="radio" name="delivery" value="owner" id="ownerDelivery" disabled>
-
-          <div>
-            <strong>Owner Delivery (Delhi NCR)</strong>
-
-            <p class="delivery-price">₹5000</p>
-
-            <small id="ownerDeliveryNote">
-              Available only in Delhi NCR
-            </small>
-          </div>
-
-        </label>
-
-        <div class="order-summary">
-
-          <h3>Order Summary</h3>
-
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <strong id="subtotalAmount">₹0</strong>
-          </div>
-
-          <div class="summary-row">
-            <span>Shipping</span>
-            <strong id="shippingAmount">₹60</strong>
-          </div>
-
-          <div class="summary-row total">
-            <span>Total</span>
-            <strong id="orderTotal">₹0</strong>
-          </div>
-
+        <div>
+          <h2>Checkout</h2>
+          <p class="checkout-subtitle">
+            Complete your order securely.
+          </p>
         </div>
 
-        <button id="placeOrderBtn" class="solid-button" type="submit">
-          Place Order
-        </button>
+        <button id="closeCheckout">✕</button>
 
-        <p class="checkout-note">
-          🔒 Your information is secure and only used for order delivery.
-        </p>
+      </div>
+      <div class="checkout-body">
+
+        <form class="checkout-form" id="checkoutForm">
+
+          <label>
+            Full Name
+            <input id="checkoutName" type="text">
+            <small id="checkoutNameError" class="error"></small>
+          </label>
+
+          <label>
+            Mobile Number
+            <input id="checkoutMobile" type="tel" maxlength="10">
+            <small id="checkoutMobileError" class="error"></small>
+          </label>
+
+          <label>
+            Delivery Address
+            <textarea id="checkoutAddress" rows="4"></textarea>
+            <small id="checkoutAddressError" class="error"></small>
+          </label>
+
+          <label>
+            Pincode
+            <input id="checkoutPincode" type="text" maxlength="6">
+            <small id="checkoutPincodeError" class="error"></small>
+          </label>
+
+          <h3>Delivery Method</h3>
+          <div id="deliverySection">
+
+            <label class="delivery-option">
+
+              <input type="radio" name="delivery" value="standard" checked>
+
+              <div>
+                <strong>Standard Delivery</strong>
+                <p id="standardDeliveryPrice">₹60</p>
+              </div>
+
+            </label>
+
+            <label class="delivery-option" id="ownerDeliveryOption">
+
+              <input type="radio" name="delivery" value="owner" id="ownerDelivery" disabled>
+
+              <div id="ownerDeliveryContainer">
+                <strong>Owner Delivery (Delhi NCR)</strong>
+
+                <p class="delivery-price">₹5000</p>
+              </div>
+
+            </label>
+          </div>
+
+          <div class="order-summary">
+
+            <h3>Order Summary</h3>
+
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <strong id="subtotalAmount">₹0</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Shipping</span>
+              <strong id="shippingAmount">₹60</strong>
+            </div>
+
+            <div class="summary-row total">
+              <span>Total</span>
+              <strong id="orderTotal">₹0</strong>
+            </div>
+
+          </div>
+      </div>
+
+      <button id="placeOrderBtn" class="solid-button" type="submit">
+        Place Order
+      </button>
+
+      <p class="checkout-note">
+        🔒 Your information is secure and only used for order delivery.
+      </p>
 
       </form>
 

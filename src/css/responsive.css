@@ -788,4 +788,9 @@
 
         padding-top: 24px;
     }
+
+
+    .menu-button {
+        display: flex;
+    }
 }
