@@ -12,6 +12,75 @@
         max-width: 100%;
     }
 
+    /* Mobile checkout */
+    .deliverySection h3 {
+        font-size: 0.9rem;
+
+        line-height: 1.1;
+    }
+
+    .delivery-option {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 14px;
+
+        padding: 15px;
+
+        border-radius: 16px;
+
+        margin-bottom: 10px;
+    }
+
+    .delivery-option input {
+
+        width: 18px;
+        height: 18px;
+
+        margin-top: 6px;
+
+        flex-shrink: 0;
+    }
+
+    .delivery-option div {
+
+        display: block;
+
+        flex: 1;
+
+        min-width: 0;
+    }
+
+    .delivery-option strong {
+
+        display: block;
+
+        font-size: 15px;
+
+        line-height: 1.25;
+
+        font-weight: 800;
+
+        text-transform: none;
+
+        letter-spacing: 0;
+
+        word-break: break-word;
+    }
+
+    .delivery-price {
+
+        display: block;
+
+        margin-top: 6px;
+
+        font-size: 15px;
+
+        color: #777;
+    }
+
     /* ===========================
    NAVBAR
 =========================== */
@@ -279,7 +348,6 @@
    CHECKOUT
 =========================== */
 
-    .checkout-content,
     .status-box,
     .success-content {
 
@@ -287,6 +355,91 @@
 
         padding: 24px;
     }
+
+    .checkout-content {
+
+        width: calc(100vw - 24px);
+
+        max-width: 420px;
+
+        height: calc(100vh - 24px);
+
+        max-height: calc(100vh - 24px);
+
+        padding: 24px;
+
+        border-radius: 22px;
+    }
+
+    .checkout-body {
+        padding: 24px 22px;
+    }
+
+    .checkout-content h2 {
+
+        font-size: 1.7rem;
+
+        line-height: 1.1;
+
+    }
+
+    .checkout-subtitle {
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+        margin: 8px 0 20px;
+
+    }
+
+    .order-summary {
+
+        padding: 18px;
+
+        margin: 20px 0;
+
+    }
+
+    .order-summary h3 {
+
+        font-size: 20px;
+
+    }
+
+    .summary-row {
+
+        font-size: 15px;
+
+    }
+
+    .summary-row.total strong {
+
+        font-size: 22px;
+
+    }
+
+    #placeOrderBtn {
+
+        height: 50px;
+
+        font-size: 15px;
+
+        border-radius: 14px;
+    }
+
+    #closeCheckout {
+
+        top: 16px;
+
+        right: 16px;
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
 
     /* ===========================
    JOURNAL
