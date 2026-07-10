@@ -54,12 +54,6 @@ pincodeInput.addEventListener("input", () => {
         pin.startsWith(prefix)
     );
 
-    console.log(pin);
-    console.log(delhiNcrPins);
-    console.log(
-        delhiNcrPins.some(prefix => pin.startsWith(prefix))
-    );
-
     if (isDelhiNCR) {
 
         ownerDeliveryOption.style.display = "flex";
