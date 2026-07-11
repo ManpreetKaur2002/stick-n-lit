@@ -23,6 +23,9 @@ function saveCart() {
 export const getCartTotal = () =>
     state.cart.reduce((sum, item) => sum + item.price, 0);
 
+export const getTotalItems = () =>
+    state.cart.reduce((sum, item) => sum + item.quantity, 0);
+
 function addToCart(item) {
     state.cart.push(item);
 

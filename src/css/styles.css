@@ -2193,3 +2193,10 @@ footer::after {
 #deliverySection.show {
     display: block;
 }
+
+.shipping-note {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #2e7d32;
+    font-weight: 600;
+}

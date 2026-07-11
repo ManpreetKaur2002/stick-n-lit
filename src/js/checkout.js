@@ -6,7 +6,7 @@ import {
     validateCheckoutAddress
 } from "./validation.js";
 
-import { getCartTotal, clearCart, state } from "./cart.js";
+import { getCartTotal, clearCart, state, getTotalItems } from "./cart.js";
 
 const subtotalAmount = document.getElementById("subtotalAmount");
 const shippingAmount = document.getElementById("shippingAmount");
@@ -40,16 +40,6 @@ pincodeInput.addEventListener("input", () => {
 
     const pin = pincodeInput.value.trim();
 
-    // Hide until 6 digits entered
-    if (pin.length < 6) {
-
-        deliverySection.classList.remove("show");
-
-        return;
-    }
-
-    deliverySection.classList.add("show");
-
     const isDelhiNCR = delhiNcrPins.some(prefix =>
         pin.startsWith(prefix)
     );
@@ -77,6 +67,10 @@ pincodeInput.addEventListener("input", () => {
 
 function updateOrderSummary() {
 
+    const totalItems = getTotalItems();
+
+    const freeShipping = totalItems >= 3;
+
     const subtotal = getCartTotal();
     const pin = pincodeInput.value.trim();
 
@@ -99,25 +93,36 @@ function updateOrderSummary() {
         return;
     }
 
-    if (deliveryMethod === DELIVERY.OWNER) {
+    if (freeShipping) {
 
-        shipping = SHIPPING.OWNER;
+        shipping = 0;
 
     } else {
 
-        const hasSmallPack = state.cart.some(item => item.quantity < 3);
-
-        shipping = hasSmallPack ? SHIPPING.STANDARD : 0;
+        shipping = ownerRadio.checked
+            ? SHIPPING.OWNER
+            : SHIPPING.STANDARD;
     }
 
     subtotalAmount.textContent =
         `₹${subtotal}`;
 
     standardDeliveryPrice.textContent =
-        shipping === 0 ? "FREE" : "₹60";
+        freeShipping ? "FREE" : "₹60";
 
     shippingAmount.textContent =
-        shipping === 0 ? "FREE" : `₹${shipping}`;
+        freeShipping
+            ? "FREE"
+            : money.format(shipping);
+    if (freeShipping) {
+
+        deliverySection.classList.remove("show");
+
+    } else {
+
+        deliverySection.classList.add("show");
+
+    }
 
     orderTotal.textContent =
         `₹${subtotal + shipping}`;
@@ -125,21 +130,21 @@ function updateOrderSummary() {
 
 function getShippingCharge() {
 
-    const selectedDelivery =
-        document.querySelector('input[name="delivery"]:checked');
+    const totalItems = getTotalItems();
 
-    const deliveryMethod = selectedDelivery
-        ? selectedDelivery.value
-        : "standard";
-
-    if (deliveryMethod === DELIVERY.OWNER) {
-        return 5000;
+    if (totalItems >= 3) {
+        return 0;
     }
 
-    // Standard delivery
-    const hasSmallPack = state.cart.some(item => item.quantity < 3);
+    const selectedDelivery =
+        document.querySelector(
+            'input[name="delivery"]:checked'
+        );
 
-    return hasSmallPack ? 60 : 0;
+    return selectedDelivery?.value === DELIVERY.OWNER
+        ? SHIPPING.OWNER
+        : SHIPPING.STANDARD;
+
 }
 
 async function createRazorpayOrder() {

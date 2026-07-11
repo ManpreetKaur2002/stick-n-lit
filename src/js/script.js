@@ -17,18 +17,19 @@ const els = {
   products: document.querySelector("[data-products]"),
   pack: document.querySelector("#packSelect"),
 };
-
 const packSelect = document.getElementById("packSelect");
-let designCheckboxes = [];
 const selectedDesigns = new Map();
-
 const selectionInfo = document.getElementById("selectionInfo");
-let maxSelection = 1;
-
 const collectionSelect = document.getElementById("collectionSelect");
 const designGrid = document.getElementById("designGrid");
 const title = document.getElementById("collectionTitle");
 const subtitle = document.getElementById("collectionSubtitle");
+const { data, error } = await supabase.auth.signInAnonymously();
+const collectionCards = document.querySelectorAll(".collection-card");
+
+
+let maxSelection = 1;
+let designCheckboxes = [];
 
 function renderCollection(collectionName) {
 
@@ -155,8 +156,6 @@ document.querySelector("[data-checkout]").addEventListener("click", () => {
 
 });
 
-const { data, error } = await supabase.auth.signInAnonymously();
-
 document.getElementById("addToCart").addEventListener("click", () => {
 
   const pack = selectedPack();
@@ -272,8 +271,6 @@ function setupCheckboxEvents() {
 }
 
 renderCollection("core");
-
-const collectionCards = document.querySelectorAll(".collection-card");
 
 collectionCards.forEach(card => {
 
