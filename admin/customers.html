@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customers • Stick N Lit Admin</title>
+
+    <link rel="stylesheet" href="./css/admin.css">
+
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <h2>Stick N Lit</h2>
+
+            <nav>
+
+                <a href="index.html">🏠 Dashboard</a>
+
+                <a href="orders.html">📦 Orders</a>
+
+                <a class="active" href="customers.html">👥 Customers</a>
+
+                <a href="failed-orders.html">⚠️ Failed Orders</a>
+
+            </nav>
+            <button id="logoutBtn" class="logout-btn">
+                Logout
+            </button>
+
+        </aside>
+
+        <main>
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>Customers</h1>
+
+                    <p>Manage your customers</p>
+
+                </div>
+
+                <input id="searchCustomers" type="text" placeholder="Search customer or mobile">
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <th>Mobile</th>
+
+                        <th>Total Orders</th>
+
+                        <th>Total Spent</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="customersTable">
+
+                </tbody>
+
+            </table>
+
+        </main>
+
+    </div>
+
+    <script type="module" src="./js/auth.js"></script>
+
+    <script type="module" src="./js/customers.js"></script>
+
+</body>
+
+</html>

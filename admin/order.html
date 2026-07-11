@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <div class="page-top">
+        <button id="backBtn">←</button>
+    </div>
+
+    <title>Order Details</title>
+
+    <link rel="stylesheet" href="./css/admin.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 id="orderTitle"></h1>
+
+        <div class="card">
+
+            <h2>Customer</h2>
+
+            <p id="customerName"></p>
+
+            <p id="customerMobile"></p>
+
+            <p id="customerAddress"></p>
+
+            <p id="customerPincode"></p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Delivery</h2>
+
+            <p id="deliveryMethod"></p>
+
+            <p id="shippingCharge"></p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Items</h2>
+
+            <div id="itemsContainer"></div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Payment</h2>
+
+            <p id="paymentStatus"></p>
+
+            <p id="paymentId"></p>
+
+            <p id="razorpayOrderId"></p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Status</h2>
+
+            <select id="statusSelect">
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Printing">Printing</option>
+                <option value="Packed">Packed</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+
+            <button id="saveStatus">Save</button>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="./js/auth.js"></script>
+
+    <script type="module" src="./js/order.js"></script>
+
+</body>
+
+</html>
