@@ -1,0 +1,1 @@
+import{t as e}from"./supabase-QT4RuUVr.js";var{data:{session:t}}=await e.auth.getSession();t||(window.location.href=`login.html`),document.getElementById(`logoutBtn`)?.addEventListener(`click`,async()=>{await e.auth.signOut(),window.location.href=`login.html`});

@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Stick N Lit handcrafted refillable custom sticker lighters with premium packaging.">
+  <title>Stick N Lit | Custom Sticker Lighters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/home-Dw024lpd.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/supabase-QT4RuUVr.js">
+  <link rel="stylesheet" crossorigin href="/assets/home-CcJWJ_J9.css">
+</head>
+
+<body>
+  <div class="menu-overlay"></div>
+  <header class="topbar">
+
+    <button class="menu-button" type="button" data-open-menu aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="#new">Home</a>
+      <a href="#custom">Order</a>
+      <a href="#drops">Collection</a>
+      <a href="#journal">About</a>
+    </nav>
+
+    <nav class="utility-nav">
+      <button class="cart-btn" data-open-cart>
+        Cart
+        <span data-cart-count>0</span>
+      </button>
+    </nav>
+
+  </header>
+
+  <aside class="mobile-menu" data-menu aria-label="Menu">
+    <a href="#new">Home</a>
+    <a href="#custom">Order</a>
+    <a href="#drops">Collection</a>
+    <a href="#journal">About</a>
+  </aside>
+
+  <main>
+    <section class="hero" id="new">
+
+      <div class="hero-content">
+        <h1>
+          <span class="brand-line">STICK N LIT</span><br>
+          <span class="tagline">WRAP IT. <br>LIGHT IT.</span>
+        </h1>
+
+        <p class="hero-description">
+          Premium refillable lighters wrapped in original artwork.
+          Build your own pack and make every light unique.
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="#custom" class="solid-button">
+            PLACE ORDER
+          </a>
+
+          <a href="#drops" class="text-button">
+            VIEW COLLECTION
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-gallery">
+
+        <div class="hero-card card-1">
+          <img src="/core_collection/pop-icon.JPG" alt="">
+        </div>
+
+        <div class="hero-card card-2">
+          <img src="/core_collection/blue-voyage.JPG" alt="">
+        </div>
+
+        <div class="hero-card card-3">
+          <img src="/cosmic_collection/found_you.jpg" alt="">
+        </div>
+
+      </div>
+      <div class="hero-features">
+
+        <span>✓ Refillable</span>
+
+        <span>✓ Waterproof Wrap</span>
+
+        <span>✓ Made in India</span>
+
+      </div>
+      <div class="scroll-indicator">
+
+        ↓
+
+      </div>
+
+    </section>
+
+    <section class="custom-order" id="custom">
+      <form class="custom-panel" id="customForm">
+        <p class="eyebrow">Welcome to Stick N Lit</p>
+        <h2>Build Your Pack</h2>
+        <p>Choose your favourite designs.</p>
+
+        <label>
+          Preferred Pack
+          <select name="pack" id="packSelect">
+            <option value="single" data-price="199" data-quantity="1" data-shipping="Shipping charges extra">
+              Single Lighter — ₹199
+            </option>
+            <option value="twin" data-price="359" data-quantity="2" data-shipping="Shipping charges extra">
+              Twin Pack — ₹359
+            </option>
+            <option value="trio" data-price="549" data-quantity="3" data-shipping="Free Shipping">
+              Trio Pack — ₹549
+            </option>
+            <option value="five" data-price="849" data-quantity="5" data-shipping="Free Shipping">
+              5 Pack — ₹849
+            </option>
+          </select>
+          <p class="shipping-note">
+            🚚 Free delivery on orders of 3 or more lighters.
+          </p>
+        </label>
+
+        <div class="selection-progress">
+
+          <div class="selection-progress-top">
+            <span>Designs Selected</span>
+            <span id="selectionCount">0 / 3</span>
+          </div>
+
+          <div class="selection-bar">
+            <div id="selectionFill" class="selection-fill"></div>
+          </div>
+
+        </div>
+
+        <label>
+          Collection
+          <select id="collectionSelect">
+            <option value="core">Core Collection</option>
+            <option value="cosmic">Cosmic Collection</option>
+          </select>
+        </label>
+
+        <p id="collectionSubtitle" class="collection-subtitle">
+          9 Exclusive Designs
+        </p>
+
+        <div class="design-grid" id="designGrid"></div>
+        <button class="solid-button" type="button" id="addToCart">
+          Add Pack
+        </button>
+
+        <p id="selectionError" class="selection-error"></p>
+      </form>
+    </section>
+
+    <section class="product-section" id="drops">
+
+      <div class="section-heading">
+        <p class="eyebrow">Collections</p>
+        <h2>Choose a Collection</h2>
+        <p>Select a design collection to build your pack.</p>
+      </div>
+
+      <div class="collection-grid">
+
+        <a href="#custom" class="collection-card" data-collection="core">
+
+          <div class="collection-collage">
+
+            <img src="/core_collection/blue-voyage.JPG">
+            <img src="/core_collection/untamed.JPG">
+            <img src="/core_collection/float.JPG">
+            <img src="/core_collection/poolside.JPG">
+
+          </div>
+
+          <div class="collection-content">
+            <h3>Core Collection</h3>
+            <p>9 Original Designs</p>
+          </div>
+
+        </a>
+
+        <a href="#custom" class="collection-card" data-collection="cosmic">
+
+          <div class="collection-collage">
+
+            <img src="/cosmic_collection/all_in.jpg">
+            <img src="/cosmic_collection/beyond.jpg">
+            <img src="/cosmic_collection/found_you.jpg">
+            <img src="/cosmic_collection/unseen.jpg">
+
+          </div>
+
+          <div class="collection-content">
+            <h3>Cosmic Collection</h3>
+            <p>6 Original Designs</p>
+          </div>
+
+        </a>
+
+      </div>
+
+    </section>
+
+    <section class="journal" id="journal">
+
+      <article>
+
+        <span>Shipping</span>
+
+        <h3>Fast Dispatch</h3>
+
+        <p>
+          Every order is packed within 24–48 hours and securely shipped across India.
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>Payment</span>
+
+        <h3>Secure Payments</h3>
+
+        <p>
+          We currently accept prepaid orders only. UPI payment details are shared during checkout.
+        </p>
+
+      </article>
+
+      <article>
+
+        <span>Ordering</span>
+
+        <h3>Made Just For You</h3>
+
+        <p>
+          Pick your favourite collection, choose your pack, and we'll create your custom order.
+        </p>
+
+      </article>
+
+    </section>
+  </main>
+
+  <aside class="cart-drawer" data-cart aria-label="Order summary">
+    <div class="cart-head">
+      <h4>Cart</h4>
+      <button class="close-cart-btn" type="button" data-close-cart>
+        ✕
+      </button>
+    </div>
+    <div class="cart-items" data-cart-items></div>
+    <div class="cart-foot">
+      <div>
+        <span>Total</span>
+        <strong data-cart-total>₹0</strong>
+      </div>
+      <button class="solid-button" type="button" data-checkout>Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <footer>
+
+    <div class="footer-left">
+
+      <h2>STICK N LIT</h2>
+
+      <p>
+        Premium refillable custom sticker lighters.
+        Designed to stand out. Built to last.
+      </p>
+
+    </div>
+
+    <div class="footer-links">
+
+      <div>
+
+        <h4>Shop</h4>
+
+        <a href="#custom">Build Your Pack</a>
+        <a href="#drops">Collections</a>
+
+      </div>
+
+      <div>
+
+        <h4>Support</h4>
+
+        <a href="mailto:sticknlit@gmail.com">
+          sticknlit@gmail.com
+        </a>
+
+      </div>
+
+      <div>
+
+        <h4>Follow</h4>
+
+        <a href="https://www.instagram.com/sticknlit?igsh=NW9tbGZrYzRpcWxy&utm_source=qr">Instagram</a>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <div id="checkoutModal" class="checkout-modal">
+
+    <div class="checkout-content">
+
+      <div class="checkout-header">
+
+        <div>
+          <h2>Checkout</h2>
+          <p class="checkout-subtitle">
+            Complete your order securely.
+          </p>
+        </div>
+
+        <button id="closeCheckout">✕</button>
+
+      </div>
+      <div class="checkout-body">
+
+        <form class="checkout-form" id="checkoutForm">
+
+          <label>
+            Full Name
+            <input id="checkoutName" type="text">
+            <small id="checkoutNameError" class="error"></small>
+          </label>
+
+          <label>
+            Mobile Number
+            <input id="checkoutMobile" type="tel" maxlength="10">
+            <small id="checkoutMobileError" class="error"></small>
+          </label>
+
+          <label>
+            Delivery Address
+            <textarea id="checkoutAddress" rows="4"></textarea>
+            <small id="checkoutAddressError" class="error"></small>
+          </label>
+
+          <label>
+            Pincode
+            <input id="checkoutPincode" type="text" maxlength="6">
+            <small id="checkoutPincodeError" class="error"></small>
+          </label>
+
+          <div id="deliverySection" class="deliverySection">
+            <h3>Delivery Method</h3>
+
+            <label class="delivery-option">
+
+              <input type="radio" name="delivery" value="standard" checked>
+
+              <div>
+                <strong>Standard Delivery</strong>
+                <p id="standardDeliveryPrice">₹60</p>
+              </div>
+
+            </label>
+
+            <label class="delivery-option" id="ownerDeliveryOption">
+
+              <input type="radio" name="delivery" value="owner" id="ownerDelivery" disabled>
+
+              <div id="ownerDeliveryContainer">
+                <strong>Owner Delivery (Delhi NCR)</strong>
+
+                <p class="delivery-price">₹5000</p>
+              </div>
+
+            </label>
+          </div>
+
+          <div class="order-summary">
+
+            <h3>Order Summary</h3>
+
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <strong id="subtotalAmount">₹0</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Shipping</span>
+              <strong id="shippingAmount">₹60</strong>
+            </div>
+
+            <div class="summary-row total">
+              <span>Total</span>
+              <strong id="orderTotal">₹0</strong>
+            </div>
+
+          </div>
+      </div>
+
+      <button id="placeOrderBtn" class="solid-button" type="submit">
+        Place Order
+      </button>
+
+      <p class="checkout-note">
+        🔒 Your information is secure and only used for order delivery.
+      </p>
+
+      </form>
+
+    </div>
+
+  </div>
+  <!-- Success Modal -->
+  <div id="successModal" class="success-modal hidden">
+    <div class="success-content">
+
+      <div class="success-icon">✓</div>
+
+      <h2>Order Placed!</h2>
+
+      <p>
+        Thank you for shopping with <strong>Stick N Lit</strong>.<br>
+        We'll contact you shortly to confirm your order.
+      </p>
+
+      <button id="continueShoppingBtn">
+        Continue Shopping
+      </button>
+
+    </div>
+  </div>
+  <div id="statusModal" class="status-modal hidden">
+
+    <div class="status-box">
+
+      <div id="statusIcon" class="status-icon"></div>
+
+      <h2 id="statusTitle"></h2>
+
+      <p id="statusMessage"></p>
+
+      <button id="statusBtn">
+        Continue Shopping
+      </button>
+
+    </div>
+
+  </div>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</body>
+
+</html>
