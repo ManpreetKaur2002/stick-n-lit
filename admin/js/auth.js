@@ -1,20 +1,32 @@
 import { supabase } from "../../src/js/supabase.js";
 
+// Check if user is logged in
 const {
-    data: { session },
+    data: { session }
 } = await supabase.auth.getSession();
 
-console.log(session)
 if (!session) {
     window.location.replace("login.html");
+    throw new Error("Not logged in");
 }
 
-// Redirect immediately if the user signs out
-supabase.auth.onAuthStateChange((event) => {
-    if (event === "SIGNED_OUT") {
-        window.location.replace("login.html");
-    }
-});
+// Check if the logged in user is an admin
+const { data: admin, error } = await supabase
+    .from("admins")
+    .select("id")
+    .eq("id", session.user.id)
+    .maybeSingle();
+
+if (error || !admin) {
+
+    await supabase.auth.signOut();
+
+    alert("You are not authorized to access the admin panel.");
+
+    window.location.replace("login.html");
+
+    throw new Error("Not an admin");
+}
 
 // Logout button
 const logoutBtn = document.getElementById("logoutBtn");
@@ -27,7 +39,7 @@ if (logoutBtn) {
 
         if (error) {
             console.error(error);
-            alert(error.message);
+            alert("Logout failed");
             return;
         }
 
