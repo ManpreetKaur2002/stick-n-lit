@@ -1,12 +1,21 @@
 import { supabase } from "../../src/js/supabase.js";
 
+// If already logged in, go straight to dashboard
+const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if (session) {
+    window.location.replace("index.html");
+}
+
 const form = document.getElementById("loginForm");
 
 form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const email = document.getElementById("email").value;
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
     const { error } = await supabase.auth.signInWithPassword({
@@ -20,5 +29,6 @@ form.addEventListener("submit", async (e) => {
         return;
     }
 
-    window.location.href = "index.html";
+    window.location.replace("index.html");
+
 });
