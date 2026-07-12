@@ -1,38 +1,33 @@
 import { supabase } from "../../src/js/supabase.js";
 
-// Check if the user is logged in
 const {
-    data: { session }
+    data: { session },
 } = await supabase.auth.getSession();
 
-// If there is no session, redirect to login
+console.log(session)
 if (!session) {
     window.location.replace("login.html");
 }
 
-// Listen for auth changes
+// Redirect immediately if the user signs out
 supabase.auth.onAuthStateChange((event) => {
-
     if (event === "SIGNED_OUT") {
         window.location.replace("login.html");
     }
-
 });
 
-// Logout
+// Logout button
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
 
     logoutBtn.addEventListener("click", async () => {
 
-        const { error } = await supabase.auth.signOut({
-            scope: "global"
-        });
+        const { error } = await supabase.auth.signOut();
 
         if (error) {
             console.error(error);
-            alert("Logout failed");
+            alert(error.message);
             return;
         }
 
